@@ -14,15 +14,8 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    db.collection("tasks")
-      .updateMany(
-        { completed: false },
-        {
-          $set: {
-            completed: true,
-          },
-        }
-      )
+    db.collection("users")
+      .deleteMany({ age: 29 })
       .then((result) => {
         console.log(result);
       })
