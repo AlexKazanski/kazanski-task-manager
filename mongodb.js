@@ -14,28 +14,18 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    db.collection("users").findOne(
-      { _id: new ObjectID("5f5b696f12e6285a9928990b") },
-      (error, user) => {
-        if (error) return console.log("Unable to fetch!");
-        console.log(user);
+    db.collection("tasks").findOne(
+      { _id: new ObjectID("5f5b6aa9e7d3c362eb3ba505") },
+      (error, result) => {
+        if (error) return console.log(error);
+        console.log(result);
       }
     );
-
-    db.collection("users")
-      .find({ age: 27 })
+    db.collection("tasks")
+      .find({ completed: false })
       .toArray((error, results) => {
         if (error) return console.log(error);
-
         console.log(results);
-      });
-
-    db.collection("users")
-      .find({ age: 27 })
-      .count((error, count) => {
-        if (error) return console.log(error);
-
-        console.log(count);
       });
   }
 );
