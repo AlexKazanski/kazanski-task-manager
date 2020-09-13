@@ -14,18 +14,19 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    db.collection("users")
-      .updateOne(
-        { name: 'Gunther' },
+    db.collection("tasks")
+      .updateMany(
+        { completed: false },
         {
-          $inc: {
-            age: 2
+          $set: {
+            completed: true,
           },
         }
       )
       .then((result) => {
         console.log(result);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
       });
   }
