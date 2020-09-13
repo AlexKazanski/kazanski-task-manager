@@ -14,18 +14,19 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    db.collection("tasks").findOne(
-      { _id: new ObjectID("5f5b6aa9e7d3c362eb3ba505") },
-      (error, result) => {
-        if (error) return console.log(error);
+    db.collection("users")
+      .updateOne(
+        { name: 'Gunther' },
+        {
+          $inc: {
+            age: 2
+          },
+        }
+      )
+      .then((result) => {
         console.log(result);
-      }
-    );
-    db.collection("tasks")
-      .find({ completed: false })
-      .toArray((error, results) => {
-        if (error) return console.log(error);
-        console.log(results);
+      }).catch((error) => {
+        console.log(error);
       });
   }
 );
