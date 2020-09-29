@@ -22,7 +22,7 @@ router.get("/tasks", async (req, res) => {
   }
 });
 
-router.get("/task/:id", async (req, res) => {
+router.get("/tasks/:id", async (req, res) => {
   const _id = req.params.id;
   try {
     const task = await Task.findById(_id);
@@ -33,7 +33,7 @@ router.get("/task/:id", async (req, res) => {
   }
 });
 
-router.patch("/task/:id", async (req, res) => {
+router.patch("/tasks/:id", async (req, res) => {
   const allowedUpdates = ["completed", "description"];
   const updates = Object.keys(req.body);
   const isValidOperation = updates.every((key) => allowedUpdates.includes(key));
@@ -54,7 +54,7 @@ router.patch("/task/:id", async (req, res) => {
   }
 });
 
-router.delete("/task/:id", async (req, res) => {
+router.delete("/tasks/:id", async (req, res) => {
   try {
     const task = await Task.findByIdAndDelete(req.params.id);
     if (!task) return res.status(404).send();

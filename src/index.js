@@ -6,6 +6,18 @@ require("./db/mongoose");
 const app = express();
 const port = process.env.PORT || 3000;
 
+// app.use((req, res, next) => {
+//   res.status(503).send("Site is currently down. Check back soon!");
+// });
+
+// app.use((req, res, next) => {
+//   if (req.method === 'GET') {
+//   res.send("GET requests are disabled")
+//   } else {
+//     next()
+//   }
+// })
+
 app.use(express.json());
 app.use(userRouter);
 app.use(taskRouter);
@@ -14,18 +26,3 @@ app.listen(port, () => {
   console.log(`Server is on port ${port}`);
 });
 
-// const bcrypt = require('bcryptjs')
-
-// const myFunction = async () => {
-//   const password = 'Red12345!'
-//   const hashPassword = await bcrypt.hash(password, 8)
-
-//   console.log(password);
-//   console.log(hashPassword);
-
-//   const isMatch = await bcrypt.compare(password, hashPassword);
-//   console.log(isMatch);
-
-// }
-
-// myFunction()
