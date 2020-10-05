@@ -139,10 +139,6 @@ router.patch("/users/me", auth, async (req, res) => {
     updates.forEach((update) => (user[update] = req.body[update]));
     await user.save();
 
-    // const user = await User.findByIdAndUpdate(_id, req.body, {
-    //   new: true,
-    //   runValidators: true,
-    // });
     if (!user) {
       return res.status(404).send();
     }
@@ -156,7 +152,7 @@ router.patch("/users/me", auth, async (req, res) => {
 router.delete("/users/me", auth, async (req, res) => {
   try {
     await req.user.remove();
-    sendCancelationEmail(req.user.email, req.user.name)
+    sendCancelationEmail(req.user.email, req.user.name);
     return res.send(req.user);
   } catch (e) {
     res.status(500).send(e);

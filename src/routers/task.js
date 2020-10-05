@@ -17,9 +17,6 @@ router.post("/tasks", auth, async (req, res) => {
   }
 });
 
-// GET /tasks?completed=true
-// GET /tasks?limit=10&skip=0
-// GET /tasks?sortBy=createdAt:desc
 router.get("/tasks", auth, async (req, res) => {
   const match = {};
   const sort = {};
@@ -68,12 +65,7 @@ router.patch("/tasks/:id", auth, async (req, res) => {
   const _id = req.params.id;
   try {
     if (!isValidOperation) return res.status(500).send("Invalid operation!");
-    // const task = await Task.findById(_id);
     const task = await Task.findOne({ _id, owner: req.user._id });
-    // const task = await Task.findByIdAndUpdate(_id, req.body, {
-    //   new: true,
-    //   runValidators: true,
-    // });
     if (!task) return res.status(404).send();
     updates.forEach((update) => (task[update] = req.body[update]));
     await task.save();
@@ -85,14 +77,10 @@ router.patch("/tasks/:id", auth, async (req, res) => {
 
 router.delete("/tasks/:id", auth, async (req, res) => {
   try {
-    // const task = await Task.findByIdAndDelete(req.params.id);
     const task = await Task.findOneAndDelete({
       _id: req.params.id,
       owner: req.user._id,
     });
-    // await req.user.populate('tasks').execPopulate()
-    // req.user.tasks = req.user.tasks.filter(t => t._id !== req.params.id && t.owner == req.user._id )
-    // await req.user.save()
     if (!task) return res.status(404).send();
     return res.send(task);
   } catch (e) {
