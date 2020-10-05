@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const databaseName = "task-manager-api";
-const connectionURL = `mongodb://root:password123@127.0.0.1:27017/${databaseName}`;
+const connectionURL = process.env.DATABASE_CONNECTION;
 
 mongoose.connect(connectionURL, {
   useNewUrlParser: true,
@@ -9,3 +8,5 @@ mongoose.connect(connectionURL, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+
