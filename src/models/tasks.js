@@ -24,7 +24,6 @@ taskSchema.pre('save', async function (next) {
   if (task.isModified('description')) {
     task.description += "M"
   }
-  console.log('running before save!');
   next()
 })
 
